@@ -40,7 +40,7 @@ void Print_Time(void *parameters){
     hour_time = rtc.getTime();
     Serial.println(hour_time);
     vTaskSuspend(TaskHandle_RTC);
-  }
+   }
   }
 
 /*xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx*/
