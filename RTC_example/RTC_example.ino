@@ -49,7 +49,7 @@ void Print_Time(void *parameters){
 void setup() {
   Serial.begin(115200);
   
-  rtc.setTime(0, 18, 13, 17, 1, 2022); 
+  rtc.setTime(0, 15, 39, 17, 1, 2022); 
 
   xTaskCreatePinnedToCore(  // Use xTaskCreate() in vanilla FreeRTOS
             Print_Time,      // Function to be called
