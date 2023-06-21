@@ -1,6 +1,6 @@
 /**
- * FreeRTOS RTC Routine
- * Date: October 15, 2022
+ * Aering System Routine
+ * Date: October 20, 2022
  * Author: Julio de Souza
   */
 
@@ -21,7 +21,7 @@
 //Variables 
   String hour_time = String(50);
   hw_timer_t *My_timer = NULL;
-
+  int time_diference;
 // Settings
   xTaskHandle TaskHandle_RTC;
   ESP32Time rtc(0);
@@ -34,11 +34,25 @@
 void IRAM_ATTR onTimer(){
   vTaskResume(TaskHandle_RTC);
 }
-
+/*
+void create_number_from_char_time(String *char_time){
+  int time_sec = 0, time_dec = 0, total_time = 0;
+  time_sec = *(char_time+7).toInt();
+  time_dec = *(char_time+6)+0;
+  total_time = time_dec*10+time_sec;
+  Serial.Prinln(total_time)
+}*/
 void Print_Time(void *parameters){
+  int tempo = 0;
   while(1){
     hour_time = rtc.getTime();
-    Serial.println(hour_time);
+    hour_time.remove(0,6);
+    tempo = hour_time.toInt();
+    //Serial.println(tempo);
+    if (tempo==0){
+      Serial.println("Chuva nessa porra"); //Toogle a pin in this
+    }
+    //create_number_from_char_time(&hour_time);
     vTaskSuspend(TaskHandle_RTC);
    }
   }
