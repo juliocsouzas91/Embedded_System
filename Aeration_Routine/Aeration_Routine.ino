@@ -1,8 +1,8 @@
 /**
- * Aering System Routine
- * Date: October 20, 2022
- * Author: Julio de Souza
-  */
+* Aering System Routine
+* Date: October 20, 2022
+* Author: Julio de Souza
+*/
 
 #include <stdlib.h>
 #include <freertos/FreeRTOS.h>
@@ -57,28 +57,19 @@ void Print_Time(void *parameters){
    }
   }
 
-/*xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx*/
-// Setup
+/*xxxxxxxxxxxxxxxxxxxxxxxxxxxSetupxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx*/
 
 void setup() {
-  Serial.begin(115200);
-  
+  Serial.begin(115200); // Used for debug purposes
   rtc.setTime(0, 15, 39, 17, 1, 2022); 
 
-  xTaskCreatePinnedToCore(  // Use xTaskCreate() in vanilla FreeRTOS
-            Print_Time,      // Function to be called
-            "Print Time",   // Name of task
-            2048,           // Stack size (bytes in ESP32, words in FreeRTOS)
-            NULL,           // Parameter to pass
-            1,              // Task priority
-            &TaskHandle_RTC,// Task handle
-            app_cpu);       // Run on one core for demo purposes (ESP32 only)
   My_timer = timerBegin(0, 80, true);
   timerAttachInterrupt(My_timer, &onTimer, true);
   timerAlarmWrite(My_timer, 1000000, true);
   timerAlarmEnable(My_timer); //Just Enable            
 }
-/*xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx*/
+
+/*xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx*/
 
 void loop() {
   // put your main code here, to run repeatedly:
